@@ -1,128 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+body{
+        font-family: "Nunito", sans-serif;
+}
+.main-container{
+    margin: auto;
+    text-align: center;
+    padding-top: 15px;
+    max-width: 900px;
+    transition: transform -5s;
+}
 header{
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-  }
-  header img{
-   justify-content: center;
-   align-items: center;
-   width: 150px;
-   height: 150px;
-  }
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.logo img{
+    height: 90px;
+    width: auto;
+    align-items: center;
+}
+.cart-btn{
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: white;
+}
+p{
+    color:rgb(65, 85, 69) ;
+}
+.products-list {
+    text-align: left;  
+}
+.products-list img{
+width: 180px;
+height: 180px;
+border-radius: 15px;
+}
+.products-list button{
+    border: none;
+    background-color: rgba(0, 100, 20, 0.587);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.cart-modal-container{
+    display: none;
+}
+.cart-modal{
+    display: grid;
+    background-color: rgb(233, 221, 195);
+    inset: 0 0 0 auto;
+    width: 400px;
+    border-radius: 5%;
+    position: fixed;
+    grid-template-rows: 70px 1fr 70px;
+    transition: -5s;
 
-  main{
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-  }
-  h2{
-   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-   font-size: 18px;
-   font-weight: 300;
-   text-align: center;
-  }
-  h2 span{
-   font-weight: 400;
-   color: #2281a9 ;
-  }
-  h3{
-   justify-content: center;
-   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-   color: #2281a9;
-   font-size: 15px;
-   text-align: center;
-  }
-  p{
-   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-   font-weight:100; 
-   font-size: 20px;
-   text-align: center;
-  }
-  .contador{
-   text-align: center;
-   margin-bottom: 40px;
-  }
-  .boton-agregar{
-   margin-top: 12px;
-  }
-  .boton-agregar :hover{
-   background-color: #e6c173;
-  }
-  .productoAgregar{
-   background-color: #cfa752;
-   color: aliceblue;
-   border: none;
-   width: 190px;
-   height: 30px;
-   border-radius: 5px;
-  }
- 
-
-  main .carrera{
-   display: flex;
-   justify-content: center;
-   height: 250px;
-   width: auto;
-   border-radius: 20px;
-  }
-  .cart-container{
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   background-color: #2281a9;
-   border-radius: 5px;
-   padding-bottom: 20px;
-  }
-  .cart-container p{
-   justify-content: center;
-   align-items: center;
-   background-color: rgb(215, 218, 220);
-   width: 390px;
-   height: 40px;
-   border-radius: 5px;
 }
-.cart-container span{
-   font-size: small;
-   font-weight: 100;
+.cart-modal h2{
+    text-align: center;
 }
- main .cantidad{
-  padding: 8px;
- }
-.events img{
-   width: 30px;
+.cart-modal .cart-checkout-btn{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
 }
-.checkout-btn{
-   background-color: #67bc5e;
-   border: none;
-   color: rgb(235, 237, 239);
-   padding-left: 168px;
-   padding-right: 168px;
-   padding-top: 14px;
-   padding-bottom: 14px;
-   margin-bottom: 12px;
-   border-radius: 5px;
+.cart-modal .cart-checkout-btn button{
+    background-color: rgba(0, 100, 20, 0.587);
+    color: white;
+    border: solid, 0.1px, rgb(233, 221, 195);
+    font-family: "Nunito", sans-serif;
+    font-weight:bolder;
+    cursor: pointer;
 }
-.checkout-btn:hover{
-   background-color: #88d77f;
+.cart-modal .cart-checkout-btn button:hover{
+    background-color: white;
+    color: rgb(50, 70, 54);
 }
-
-.delete-cart {
-   background-color: #848484;
-   border: none;
-   color: rgb(235, 237, 239);
-   padding-left: 182px;
-   padding-right: 182px;
-   padding-top: 5px;
-   padding-bottom: 14px;
-   margin-bottom: 5px;
-   border-radius: 5px;
+.cart-modal .cart-list .item img{
+    width: 100%;
+    padding-left: 5px;
+    border-radius: 5px;
 }
-.delete-cart:hover{
-   background-color: #ada8a8;
+.cart-modal .cart-list .item{
+    display: grid;
+    grid-template-columns: 70px 150px 50px 1fr;
+    gap:10px;
+    text-align: center;
+    align-items: center;
 }
-
+.cart-list .quantity span{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 100, 20, 0.587);
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.cart-list .quantity span:nth-child(2){
+    background-color: transparent;
+    color: black;
+}
+.cart-list .item:nth-child(even){
+    background-color:rgb(200, 190, 169) ;
+}
+.cart-list{
+    overflow: auto;
+}
 
 
 

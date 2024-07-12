@@ -1,73 +1,181 @@
 const productos = [
     {
-        id: 1,
-        km: "15 KM",
-        name: "Valle de Bravo, MX",
-        date: "30/11/2024    9:00AM",
-        price: 1200, 
+        id: 1, 
+        nombre: "Frasco de vidrio hermético",
+        precio: 120, 
+        cantidad:0,
+        img: "./images/frasco-vidrio.jpg"
+    },
+    {
+        id: 2,
+        nombre: "Popote de acero inoxidable",
+        precio: 35,
+        cantidad:0,
+        img: "./images/straw.jpg"
+    },
+    {
+        id: 3,
+        nombre: "Infusor de acero inoxidable",
+        precio: 45,
+        cantidad:0,
+        img: "./images/infusor.jpg"
+    },
+    {
+        id: 4,
+        nombre: "Bolsa de tela",
+        precio: 345,
+        cantidad:0,
+        img: "./images/totebag.jpg"
+    },
+    {
+        id: 5,
+        nombre: "Termo 450ml",
+        precio: 360,
+        cantidad:0,
+        img: "./images/termo-inox.jpg"
     }
-]
+] 
 
-
-//CREAR TARJETA DE CARRERA
-let cartProducts = []
-
+let cartBtn = document.querySelector('.cart');
+let cartModal = document.querySelector ('.cart-modal-container');
+let closeCartBtn = document.querySelector ('.close-btn');
 let productsContainer = document.getElementById("products-container")
+let listCartProducts = document.querySelector('.cart-list')
+let cartProducts = [];
+
+
+///////////////PRODUCT LIST//////////////////////////////
 function renderProductos (productsArray) {
     productsArray.forEach(producto => {
         const card = document.createElement("div")
-        card.innerHTML = `                        
-                          <h3>${producto.km}</h3>
-                          <p>${producto.name}</p>
-                          <p>${producto.date}</p>
-                          <h3>$${producto.price} MXN p/persona </h3>
-                          <div class="contador">
-                          <img class="boton-menos" id="${producto.id}" src= "https://img.icons8.com/ios/50/minus.png" alt="quitar" </img>
-                          <input class="cantidad" id="${producto.tickets}" type="text" value="0">
-                          <img class="boton-mas" id="${producto.id}" src= "https://img.icons8.com/ios/50/add--v1.png" alt="agregar" </img>
-                          <div class="boton-agregar">
-                          <button class="productoAgregar" id="${producto.id}">Agregar boletos </button>
-                          </div>
-                          </div>`
+        card.dataset.id = producto.id;
+        card.innerHTML = `<img class= "product-img" src="${producto.img}" alt="">
+                          <h3>${producto.nombre}</h3>
+                          <p>$${producto.precio}.00</p>
+                          <button class="add-btn" id="${producto.id}"> Agregar </button>
+                        `
         productsContainer.appendChild(card)
-    })
-    //addToCartButton()
+    })  
 }
+
 renderProductos(productos)
 
-//ACCION DE BOTONES MAS Y MENOS
-let botonMenos = document.querySelector('.boton-menos');
-let botonMas = document.querySelector('.boton-mas');
-let userInput = document.querySelector('.cantidad');
-let userProducts = 0;
-botonMas.addEventListener('click', (e)=>{
-      userProducts++;
-      userInput.value = userProducts;
-});
-botonMenos.addEventListener('click', (e)=>{
-  userProducts--;
-    if(userProducts <= 0){
-    userProducts = 0;
+
+////////HIDDE AND SHOW MODAL//////////////////////
+
+cartBtn.addEventListener ('click', () => {
+    cartModal.style.display = ('block');
+})
+closeCartBtn.addEventListener ('click', () => {
+    cartModal.style.display = ('none')
+})
+
+productsContainer.addEventListener ('click', (e) => {
+    let positionClick = e.target;
+    if(positionClick.classList.contains('add-btn')){
+        let productId = positionClick.parentElement.dataset.id;
+        addToCart (productId);
     }
-    userInput.value = userProducts
-});
+} )
 
-//AGREGAR EL TOTAL DE PRODUCTOS AL CARRITO
-const addToCartBtn = document.querySelector('.productoAgregar');
-let totalTickets = document.querySelector('.cart-total');
-addToCartBtn.addEventListener('click', ()=> {
-    totalTickets.innerHTML = `<p>Total <span>(x${userProducts})</span>: $${userProducts*1200} MXN</p>`
-    appendChild ()
+////////ADD TO CART BUTTON//////////////////////
+let addToCart = (productId) => {
+    let positionInCart = cartProducts.findIndex((value) => value.productId == productId);
+    if(cartProducts.length <= 0){
+    cartProducts = [{
+        productId: productId,
+        quantity:1
+    }]
+}
+else if(positionInCart<0)
+    {
+cartProducts.push({
+    productId: productId,
+    quantity:1
+});}
+else{
+    cartProducts[positionInCart].quantity = cartProducts[positionInCart].quantity + 1;
+}
+cartHTML();
+////////CART STORAGE//////////////////////
+cartMemory();
+}
+let cartMemory = () => {
+    localStorage.setItem('cartProduct', JSON.stringify(cartProducts));
 
+}
+
+
+
+////////CART PRODUCTS//////////////////////
+let cartHTML = () => {
+    listCartProducts.innerHTML = ``;
+    if(cartProducts.length > 0){
+        cartProducts.forEach(cartProduct => {
+            let newCart = document.createElement('div');
+            newCart.classList.add('item');
+            newCart.dataset.id = cartProduct.productId;
+            let positionProduct= productos.findIndex((value) => value.id == cartProduct.productId);
+            let info = productos[positionProduct];
+            newCart.innerHTML = `
+             <div class="image">
+             <img src="${info.img}" alt="cartThumbnail">
+             </div>
+             <div class="product-name">
+              ${info.nombre}
+             </div>
+             <div class="Price">
+              $${info.precio * cartProduct.quantity}
+             </div>
+             <div class="quantity">
+              <span class="minus">-</span>
+             <span>${cartProduct.quantity}</span>
+              <span class="plus">+</span>
+             </div>
+      `
+         listCartProducts.appendChild(newCart);
+        })
+    }
+}
+
+listCartProducts.addEventListener ('click', (e) => {
+    let positionClick = e.target;
+    if(positionClick.classList.contains('minus') || positionClick.classList.contains('plus')){
+        let productId = positionClick.parentElement.parentElement.dataset.id;
+        let type = 'minus';
+        if(positionClick.classList.contains('plus')){
+            type = 'plus';   
+        }
+        changeQuantity(productId, type);
+    }
 })
+////////////////MINUS AND ADD ITEMS BUTTONS///////////////////////////
+let changeQuantity = (productId, type) => {
+    let positionItemInCart= cartProducts.findIndex((value) => value.productId == productId);
+    if (positionItemInCart >= 0){
+        switch(type){
+            case 'plus':
+            cartProducts[positionItemInCart].quantity = cartProducts[positionItemInCart].quantity + 1;
+            break;
+            default:
+                let valueChange=cartProducts[positionItemInCart].quantity -1;
+                if(valueChange > 0){
+                    cartProducts[positionItemInCart].quantity = valueChange;
+                }
+                else{
+                    cartProducts.splice(positionItemInCart,1);
+                }
+                break;
+        }
+    }
+    cartMemory();
+    cartHTML();
+}
 
-//VACIAR CARRITO
-
-const removeItems=document.querySelector ('.delete-cart');
-removeItems.addEventListener('click',()=>{
-    totalTickets.innerHTML = `<p>Total <span>(x0)</span>: $0 MXN</p>`
-
-})
+if(localStorage.getItem('cartProduct')){
+    cartProducts = JSON.parse(localStorage.getItem('cartProduct'));
+    cartHTML();
+}
 
 
 

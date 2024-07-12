@@ -3,39 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DESAFIO RUN 4 FUN</title>
+    <title>Salvia</title>
     <script defer src="./js/main.js"></script>
     <link rel="stylesheet" href="./css/style.css">
 </head>
-<body>
+
+<body class="">
+<div class="main-container">
     <header>
-    <div class="logo">
-        <img src="./imagenes/logo.png" alt="Run4fun-logo">
-    </div>
+      <div class="logo">
+      <img src="./images/logo.png" alt="logo">
+      </div>
+     <div class="cart">
+       <button class="cart-btn">
+        <img src="./images/cart-icon.png" alt="cart-icon">
+      </button>
+     </div>
     </header>
 
-    <main>
-        <h2>En Run 4 Fun, te brindamos experiencias deportivas inolvidables en la naturaleza. Combinamos la emoción de los obstáculos, la alegría del fitness y la belleza del entorno natural para crear carreras únicas y llenas de diversión. <span>¡Vive la aventura de tu vida con Run4Fun!</span></h2>
-        <img class="carrera" src="https://images.unsplash.com/photo-1521475711856-a80d1d3845a4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="carrera-valleDeBravo">
-        <section class="events"  id="products-container">
-        </section>
-    </main>
-
-    <div class="cart-container">
-        <div class="cart-total">
-        <p>Total <span>(x0)</span>: $0 MXN</p>
-        </div>
-        <div>
-        <button class="checkout-btn"> Checkout </button>  
-        </div>
-        <button class="delete-cart">
-        <img width="30" height="30" src="https://img.icons8.com/quill/50/006414/delete.png" alt="delete"/>
-        </button>
+    <h2>Accesorios</h2>
+    <p>Aquí encontrarás todos los accesorios para llevar una vida con <span>menos residuos</span></p>
     
+    <section class="products-list"  id="products-container">
+    </section>
 
+</div>
+
+  <div class="cart-modal-container">
+  <div class="cart-modal">
+    <h2>Carrito</h2>
+    <div class="cart-list">
+     <div class="item">
+        <div class="image">
+        <img src="./images/frasco-vidrio.jpg" alt="">
+      </div>
+      <div class="product-name">
+        NAME
+      </div>
+      <div class="Price">
+        $0.00
+      </div>
+      <div class="quantity">
+        <span class="minus">-</span>
+        <span>1</span>
+        <span class="plus">+</span>
+      </div>
+     </div>
     </div>
+  <div class="cart-checkout-btn">
+    <button class="close-btn">Cerrar</button>
+    <button class="checkout-btn">Ir a pago</button>
+  </div>
+</div>
+</div>
 
-
-    
 </body>
-</html
+</html>
+
